@@ -80,14 +80,16 @@
                 <div data-i18n="Account Settings">Product Management</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Category</div>
+                <li class="menu-item {{ request()->routeIs('dashboard.category.*') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.category.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Category</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Product</div>
+                <li class="menu-item {{ request()->routeIs('dashboard.product.*') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.product.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Product</div>
                     </a>
                 </li>
             </ul>

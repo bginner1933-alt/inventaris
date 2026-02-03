@@ -7,13 +7,19 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
-    public function index()
+    public function index(Request $request) // Tambahkan Request $request
     {
+        $search = $request->query('search');
+
         $title = 'Delete User!';
         $text  = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        $users = User::all();
+
+        $users = User::when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+        })->get();
+
         return view('dashboard.users.index', compact('users'));
     }
 
