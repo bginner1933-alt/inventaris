@@ -2,81 +2,70 @@
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold py-3 mb-0">
-            <span class="text-muted fw-light">Produk /</span> Tambah Baru
-        </h4>
-        <a href="{{ route('dashboard.product.index') }}" class="btn btn-outline-secondary">
-            <i class="bx bx-arrow-back me-1"></i> Kembali
-        </a>
-    </div>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Barang /</span> Tambah Baru</h4>
 
-    <div class="row">
-        <div class="col-xl">
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Form Detail Produk</h5>
-                    <small class="text-muted float-end">Pastikan data yang diinput benar</small>
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ route('dashboard.barang.store') }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Kode Barang</label>
+                        <input type="text" name="kode_barang" class="form-control"
+                            value="BRG-{{ strtoupper(Str::random(5)) }}" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Nama Barang</label>
+                        <input type="text" name="nama_barang" class="form-control" required
+                            placeholder="Contoh: Laptop ThinkPad">
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form action="{{ route('dashboard.product.store') }}" method="POST">
-                        @csrf
-                        
-                        <div class="mb-3">
-                            <label class="form-label" for="name">Nama Produk</label>
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class="bx bx-box"></i></span>
-                                <input type="text" name="name" id="name" 
-                                    class="form-control @error('name') is-invalid @enderror" 
-                                    placeholder="Masukkan nama produk..." 
-                                    value="{{ old('name') }}" required />
-                            </div>
-                            @error('name')
-                                <div class="text-danger small mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
 
-                        <div class="mb-3">
-                            <label class="form-label" for="price">Harga</label>
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" name="price" id="price" 
-                                    class="form-control @error('price') is-invalid @enderror" 
-                                    placeholder="0" 
-                                    value="{{ old('price') }}" required />
-                            </div>
-                            @error('price')
-                                <div class="text-danger small mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label" for="category_id">Kategori</label>
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class="bx bx-category"></i></span>
-                                <select name="category_id" id="category_id" 
-                                    class="form-select @error('category_id') is-invalid @enderror" required>
-                                    <option value="">Pilih Kategori</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                            {{ $category->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @error('category_id')
-                                <div class="text-danger small mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mt-4">
-                            <button type="submit" class="btn btn-primary d-flex align-items-center">
-                                <i class="bx bx-save me-1"></i> Simpan Produk
-                            </button>
-                        </div>
-                    </form>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Kategori</label>
+                        <select name="kategori_id" class="form-select" required>
+                            <option value="">-- Pilih Kategori --</option>
+                            @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}">{{ $cat->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Lokasi / Ruangan</label>
+                        <select name="lokasi_id" class="form-select" required>
+                            <option value="">-- Pilih Lokasi --</option>
+                            @foreach($locations as $loc)
+                            <option value="{{ $loc->id }}">{{ $loc->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Stok</label>
+                        <input type="number" name="stok" class="form-control" min="0" value="0">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Satuan</label>
+                        <input type="text" name="satuan" class="form-control" placeholder="Pcs/Unit/Set">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Kondisi</label>
+                        <select name="kondisi" class="form-select">
+                            <option value="Baik">Baik</option>
+                            <option value="Rusak Ringan">Rusak Ringan</option>
+                            <option value="Rusak Berat">Rusak Berat</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary me-2">Simpan Barang</button>
+                    <a href="{{ route('dashboard.barang.index') }}" class="btn btn-outline-secondary">Batal</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>

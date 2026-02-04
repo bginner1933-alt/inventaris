@@ -41,7 +41,9 @@
                                 </div>
                                 <div class="flex-grow-1">
                                     <span class="fw-semibold d-block">{{ Auth::user()?->name ?? 'Guest' }}</span>
-                                    <small class="text-muted">Admin</small>
+                                    <small class="text-muted">
+                                        <a class="dropdown-item" href="{{ route('dashboard.profile.index') }}">Admin</a>
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -53,12 +55,12 @@
                     @auth
                     <li>
                         <a class="dropdown-item" href="{{ route('dashboard.profile.index') }}">
-                            <i class="bx bx-user me-2"></i> My Profile
+                            <i class="bx bx-user me-2"></i> Profil
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bx bx-cog me-2"></i> Settings
+                        <a class="dropdown-item" href="{{ route('dashboard.pengaturan.index') }}">
+                            <i class="bx bx-cog me-2"></i> Pengaturan
                         </a>
                     </li>
                     <li>
@@ -67,7 +69,7 @@
                     <li>
                         <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="bx bx-power-off me-2"></i> Log Out
+                            <i class="bx bx-power-off me-2"></i> Keluar
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf

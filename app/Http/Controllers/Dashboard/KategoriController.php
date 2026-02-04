@@ -59,19 +59,18 @@ class KategoriController extends Controller
             ->with('success', 'Kategori berhasil ditambahkan!');
     }
 
-    /**
-     * Menampilkan detail kategori (opsional).
-     */
-    public function show(string $id)
-    {
-        $kategori = Kategori::with('barangs')->findOrFail($id);
-        return view('dashboard.kategori.show', compact('kategori'));
-    }
+    public function show($id)
+        {
+            // Mengambil kategori beserta semua barang yang memilikinya
+            $kategori = Kategori::with('barangs')->findOrFail($id);
+            
+            return view('dashboard.kategori.show', compact('kategori'));
+        }
 
     /**
      * Menampilkan form edit kategori.
      */
-    public function edit(string $id)
+    public function edit($id) 
     {
         $kategori = Kategori::findOrFail($id);
         return view('dashboard.kategori.edit', compact('kategori'));

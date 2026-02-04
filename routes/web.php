@@ -11,38 +11,39 @@ use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\LocationController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\PeminjamanController;
+use App\Http\Controllers\Dashboard\PengaturanController;
 
-// 1. Halaman Depan / Landing Page
+// --- Public Routes ---
 Route::get('/', function () {
     return view('home');
 })->middleware('guest');
 
-// 2. Auth Routes (Registrasi Dimatikan)
 Auth::routes(['register' => false]);
 
-// 3. Redirect Setelah Login
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-// 4. Grup Dashboard (SATU GRUP SAJA)
+// --- Dashboard Routes ---
 Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
     
-    // Dashboard Index
+    // Index Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     
-    // Manajemen Master Data (Resource)
-    Route::resource('kategori', KategoriController::class); // Route: dashboard.kategori.index
-    Route::resource('barang', BarangController::class);     // Route: dashboard.barang.index
-    Route::resource('users', UserController::class);       // Route: dashboard.users.index
+    // Resource Routes (Otomatis mencakup index, create, store, show, edit, update, destroy)
+    Route::resource('barang', BarangController::class);
+    Route::resource('kategori', KategoriController::class);
+    Route::resource('peminjaman', PeminjamanController::class);
+    Route::resource('users', UserController::class);
+
+    // Lokasi (Dibuat resource agar lebih rapi dan fiturnya lengkap)
+    Route::resource('location', LocationController::class)->names([
+        'index' => 'location.index',
+        'store' => 'location.store',
+    ]);
     
-    // Lokasi (Manual Route)
-    Route::get('/location', [LocationController::class, 'index'])->name('location.index');
-    Route::post('/location', [LocationController::class, 'store'])->name('location.store');
-    
-    // Profile
+    // Profile & Search
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
-    
-    // API & Search
     Route::get('/search/api', [SearchController::class, 'globalSearch'])->name('search.api');
-    Route::resource('peminjaman', PeminjamanController::class);
+    Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('pengaturan.index');
+    Route::put('/pengaturan', [PengaturanController::class, 'update'])->name('pengaturan.update');
 });

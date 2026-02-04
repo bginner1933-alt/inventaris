@@ -45,7 +45,13 @@
                             <td>
                                 <div class="d-flex">
                                     <a href="{{ route('dashboard.kategori.edit', $item->id) }}"
-                                        class="btn btn-sm btn-info mr-2">Edit</a>
+                                        class="btn btn-sm btn-warning mr-2">Edit
+                                    </a>
+
+                                    <a href="{{ route('dashboard.kategori.show', $item->id) }}" class="btn btn-sm btn-info mr-2">
+                                        Detail
+                                    </a>
+
                                     <form action="{{ route('dashboard.kategori.destroy', $item->id) }}" method="POST"
                                         onsubmit="return confirm('Yakin hapus?')">
                                         @csrf

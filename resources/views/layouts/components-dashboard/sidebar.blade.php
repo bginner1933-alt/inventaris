@@ -78,17 +78,19 @@
             <span class="menu-header-text">Master Data</span>
         </li>
 
-        <li class="menu-item {{ request()->routeIs('dashboard.category.*') ? 'active' : '' }}">
-            <a href="{{ route('dashboard.kategori.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-category"></i>
-                <div>Kategori</div>
-            </a>
-        </li>
-
-        <li class="menu-item {{ request()->routeIs('dashboard.product.*') ? 'active' : '' }}">
+        {{-- Menu Barang --}}
+        <li class="menu-item {{ request()->routeIs('dashboard.barang.*') ? 'active' : '' }}">
             <a href="{{ route('dashboard.barang.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-package"></i>
                 <div>Barang</div>
+            </a>
+        </li>
+        
+        {{-- Menu Kategori --}}
+        <li class="menu-item {{ request()->routeIs('dashboard.kategori.*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.kategori.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-category"></i>
+                <div>Kategori</div>
             </a>
         </li>
 
@@ -101,7 +103,7 @@
 
         <li class="menu-item {{ request()->routeIs('dashboard.peminjaman.*') ? 'active' : '' }}">
             <a href="{{ route('dashboard.peminjaman.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-map-pin"></i>
+                <i class="menu-icon tf-icons bx bx-receipt"></i>
                 <div>Peminjaman</div>
             </a>
         </li>
