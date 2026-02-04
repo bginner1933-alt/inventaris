@@ -12,7 +12,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('category')->get();
-        return view('dashboard.product.index', compact('products'));
+        return view('dashboard.products.index', compact('products'));
     }
 
     public function create()
@@ -61,6 +61,6 @@ class ProductController extends Controller
     {
         $product = Product::with('category')->findOrFail($id);
 
-        return view('products.show', compact('product'));
+        return view('dashboard.products.show', compact('product'));
     }
 }

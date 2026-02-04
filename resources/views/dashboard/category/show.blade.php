@@ -1,35 +1,47 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="container">
-    <h3 class="mb-4">Kategori: {{ $category->name }}</h3>
+<div class="container-xxl flex-grow-1 container-p-y">
 
+    {{-- Breadcrumb --}}
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb breadcrumb-style1">
+            <li class="breadcrumb-item">
+                <a href="{{ route('dashboard.category.index') }}">Kategori</a>
+            </li>
+            <li class="breadcrumb-item active">
+                {{ $category->name ?? 'Kategori Tidak Ditemukan' }}
+            </li>
+        </ol>
+    </nav>
+
+    {{-- Nama Kategori --}}
+    <h2 class="mb-4">{{ $category->name ?? '-' }}</h2>
+
+    {{-- Daftar Produk --}}
     <div class="row">
-        @forelse ($category->products as $product)
-            <div class="col-md-4 mb-3">
-                <div class="card h-100">
-                    <img src="{{ asset('storage/' . $product->image) }}"
-                         class="card-img-top"
-                         alt="{{ $product->name }}">
-
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $product->name }}</h5>
-                        <p class="text-primary">
-                            Rp {{ number_format($product->price, 0, ',', '.') }}
-                        </p>
-
-                        <a href="{{ route('products.show', $product->id) }}"
-                           class="btn btn-sm btn-primary">
-                            Lihat Produk
-                        </a>
-                    </div>
+        @forelse($category->products as $product)
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/no-image.png') }}"
+                     class="card-img-top" alt="{{ $product->name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $product->name }}</h5>
+                    <p class="card-text">
+                        Rp {{ number_format($product->price ?? 0, 0, ',', '.') }}
+                    </p>
+                    <a href="{{ route('dashboard.product.show', $product->id) }}" class="btn btn-primary btn-sm">
+                        Lihat Detail
+                    </a>
                 </div>
             </div>
+        </div>
         @empty
-            <div class="alert alert-warning">
-                Belum ada produk di kategori ini.
-            </div>
+        <div class="col-12">
+            <p class="text-muted">Belum ada produk di kategori ini.</p>
+        </div>
         @endforelse
     </div>
+
 </div>
 @endsection

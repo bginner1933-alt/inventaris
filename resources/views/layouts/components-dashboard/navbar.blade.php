@@ -10,7 +10,7 @@
             <div class="nav-item d-flex align-items-center" style="position: relative;">
                 <i class="bx bx-search fs-4 lh-0"></i>
                 <input type="text" id="global-search" class="form-control border-0 shadow-none" 
-                    placeholder="Cari produk, kategori, atau user..." autocomplete="off" style="width: 250px;" />
+                    placeholder="Search..." autocomplete="off" style="width: 250px;" />
                 
                 <div id="search-results" class="dropdown-menu shadow-lg border-0 mt-2" 
                     style="display: none; position: absolute; top: 100%; left: 0; width: 350px; max-height: 400px; overflow-y: auto; z-index: 1000;">
@@ -44,7 +44,11 @@
                     </li>
                     <li><div class="dropdown-divider"></div></li>
                     @auth
-                        <li><a class="dropdown-item" href="#"><i class="bx bx-user me-2"></i> My Profile</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('dashboard.profile.index') }}">
+                                <i class="bx bx-user me-2"></i> My Profile
+                            </a>
+                        </li>
                         <li><a class="dropdown-item" href="#"><i class="bx bx-cog me-2"></i> Settings</a></li>
                         <li><div class="dropdown-divider"></div></li>
                         <li>

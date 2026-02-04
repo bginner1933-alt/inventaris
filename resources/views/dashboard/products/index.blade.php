@@ -54,11 +54,14 @@
                                     <a class="dropdown-item" href="{{ route('dashboard.product.edit', $product->id) }}">
                                         <i class="bx bx-edit-alt me-1"></i> Edit
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('dashboard.product.show', $product->id) }}">
+                                        <i class="bx bx-show-alt me-1"></i> Show
+                                    </a>
                                     <form action="{{ route('dashboard.product.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="dropdown-item text-danger">
-                                            <i class="bx bx-trash me-1"></i> Hapus
+                                            <i class="bx bx-trash me-1"></i> Delete
                                         </button>
                                     </form>
                                 </div>

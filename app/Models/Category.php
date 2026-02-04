@@ -14,4 +14,9 @@ class Category extends Model
 
     // Jika pakai timestamps (created_at, updated_at)
     public $timestamps = true;
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
