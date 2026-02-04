@@ -30,9 +30,20 @@
                     <p class="card-text">
                         Rp {{ number_format($product->price ?? 0, 0, ',', '.') }}
                     </p>
-                    <a href="{{ route('dashboard.product.show', $product->id) }}" class="btn btn-primary btn-sm">
-                        Lihat Detail
-                    </a>
+                    public function up(): void
+                    {
+                    Schema::table('users', function (Blueprint $table) {
+                    // Tambahkan kolom photo setelah kolom email (opsional penempatannya)
+                    $table->string('photo')->nullable()->after('email');
+                    });
+                    }
+                    
+                    public function down(): void
+                    {
+                    Schema::table('users', function (Blueprint $table) {
+                    $table->dropColumn('photo');
+                    });
+                    }
                 </div>
             </div>
         </div>

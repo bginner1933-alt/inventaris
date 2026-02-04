@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->decimal('price', 10, 2);
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('barang', function (Blueprint $table) {
+            // Hapus ->after('nama') jika kamu tidak yakin nama kolom sebelumnya
+            $table->integer('stok')->default(0); 
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::table('barang', function (Blueprint $table) {
+            //
+        });
     }
 };

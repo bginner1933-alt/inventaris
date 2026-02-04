@@ -1,7 +1,8 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
+        <a href="{{ route('dashboard.index') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
+                {{-- SVG Logo Tetap Sama --}}
                 <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <defs>
@@ -45,7 +46,7 @@
                     </g>
                 </svg>
             </span>
-            <span class="app-brand-text demo menu-text text-center fw-bolder ms-2">INVAS</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">INVAS</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -56,43 +57,53 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <!-- Dashboard -->
         <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
             <a href="{{ route('dashboard.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div>Dashboard</div>
             </a>
         </li>
 
-        <!-- Layouts -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Pages</span>
+            <span class="menu-header-text">Administrator</span>
         </li>
         <li class="menu-item {{ request()->routeIs('dashboard.users.*') ? 'active' : '' }}">
             <a href="{{ route('dashboard.users.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Analytics">Users Management</div>
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div>Users Management</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Product Management</div>
+
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Master Data</span>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('dashboard.category.*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.kategori.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-category"></i>
+                <div>Kategori</div>
             </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ request()->routeIs('dashboard.category.*') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard.category.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                        <div data-i18n="Analytics">Category</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('dashboard.product.*') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard.product.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                        <div data-i18n="Analytics">Product</div>
-                    </a>
-                </li>
-            </ul>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('dashboard.product.*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.barang.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div>Barang</div>
+            </a>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('dashboard.location.*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.location.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-map-pin"></i>
+                <div>Lokasi</div>
+            </a>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('dashboard.peminjaman.*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.peminjaman.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-map-pin"></i>
+                <div>Peminjaman</div>
+            </a>
         </li>
     </ul>
 </aside>

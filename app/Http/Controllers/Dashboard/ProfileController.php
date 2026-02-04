@@ -1,62 +1,53 @@
 <?php
 
-namespace App\Http\Controllers\dashboard; // Pastikan ada \dashboard
+namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller; // Wajib import controller utama
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        return view('dashboard.profile.index'); // Sesuaikan dengan folder view Anda
+        return view('dashboard.profile.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(Request $request)
     {
-        //
-    }
+        $user = Auth::user();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // 1. Validasi Input
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'photo'    => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Max 2MB
+            'password' => 'nullable|string|min:8', // Password opsional
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        // 2. Update Nama
+        $user->name = $request->name;
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // 3. Logic Ganti Foto
+        if ($request->hasFile('photo')) {
+            // Hapus foto lama jika ada di storage agar tidak nyampah
+            if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+            // Simpan foto baru ke folder 'profiles' di storage/app/public
+            $path = $request->file('photo')->store('profiles', 'public');
+            $user->photo = $path;
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // 4. Update Password (hanya jika diisi)
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Profil kamu berhasil diperbarui!');
     }
 }
