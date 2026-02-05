@@ -40,10 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">{{ Auth::user()?->name ?? 'Guest' }}</span>
-                                    <small class="text-muted">
-                                        <a class="dropdown-item" href="{{ route('dashboard.profile.index') }}">Admin</a>
-                                    </small>
+                                    <span class="fw-semibold d-block"><a href="{{ route('dashboard.profile.index') }}">{{ Auth::user()?->name ?? 'Guest' }}</a></span>
                                 </div>
                             </div>
                         </div>

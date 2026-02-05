@@ -70,12 +70,12 @@
         <li class="menu-item {{ request()->routeIs('dashboard.users.*') ? 'active' : '' }}">
             <a href="{{ route('dashboard.users.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
-                <div>Users Management</div>
+                <div>Manajemen Pengguna</div>
             </a>
         </li>
 
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Master Data</span>
+            <span class="menu-header-text">Data</span>
         </li>
 
         {{-- Menu Barang --}}
