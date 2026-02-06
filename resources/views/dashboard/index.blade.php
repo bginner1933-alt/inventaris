@@ -5,22 +5,34 @@
 
 <style>
     /* Styling Card Utama */
-    .finance-card {
+    .inventory-card {
         border: none;
         border-radius: 20px;
         transition: all 0.3s ease;
         overflow: hidden;
     }
-    
-    .finance-card:hover {
+
+    .inventory-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
     }
 
-    /* Gradient Backgrounds */
-    .bg-income { background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%) !important; }
-    .bg-expense { background: linear-gradient(135deg, #dc3545 0%, #a71d2a 100%) !important; }
-    .bg-balance { background: linear-gradient(135deg, #696cff 0%, #4e51d8 100%) !important; }
+    /* Gradient Backgrounds sesuai konteks Inventaris */
+    .bg-items {
+        background: linear-gradient(135deg, #696cff 0%, #4e51d8 100%) !important;
+    }
+
+    .bg-categories {
+        background: linear-gradient(135deg, #03c3ec 0%, #0294b3 100%) !important;
+    }
+
+    .bg-locations {
+        background: linear-gradient(135deg, #71dd37 0%, #54a429 100%) !important;
+    }
+
+    .bg-loans {
+        background: linear-gradient(135deg, #ffab00 0%, #cc8900 100%) !important;
+    }
 
     /* Icon Styling */
     .icon-circle {
@@ -49,53 +61,65 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-        <div class="col-12 mb-4" data-aos="fade-down">
-            <div class="card finance-card bg-balance text-white shadow">
-                <div class="card-body d-flex justify-content-between align-items-center p-4">
-                    <div>
-                        <h6 class="text-white-50 mb-1">Total Saldo (Net Worth)</h6>
-                        <h2 class="text-white fw-bold mb-0">Rp 14.250.000</h2>
-                    </div>
-                    <div class="icon-circle">
-                        <i class="bx bx-wallet"></i>
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
+            <div class="card inventory-card bg-items text-white shadow">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-white-50 mb-1">Total Barang</h6>
+                            <h2 class="text-white fw-bold mb-0">{{ $totalBarang }}</h2>
+                        </div>
+                        <div class="icon-circle">
+                            <i class="bx bx-package"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 mb-4" data-aos="fade-right" data-aos-delay="100">
-            <div class="card finance-card bg-income text-white shadow-sm">
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card inventory-card bg-categories text-white shadow">
                 <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <p class="mb-1 text-white-50 small">Total Pemasukan</p>
-                            <h3 class="text-white fw-bold mb-0">Rp 20.000.000</h3>
+                            <h6 class="text-white-50 mb-1">Kategori</h6>
+                            <h2 class="text-white fw-bold mb-0">{{ $totalKategori }}</h2>
                         </div>
                         <div class="icon-circle">
-                            <i class="bx bx-trending-up"></i>
+                            <i class="bx bx-category"></i>
                         </div>
-                    </div>
-                    <div class="mt-3">
-                        <small class="text-white-50"><i class="bx bx-calendar me-1"></i> Bulan ini (Februari)</small>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 mb-4" data-aos="fade-left" data-aos-delay="200">
-            <div class="card finance-card bg-expense text-white shadow-sm">
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card inventory-card bg-locations text-white shadow">
                 <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <p class="mb-1 text-white-50 small">Total Pengeluaran</p>
-                            <h3 class="text-white fw-bold mb-0">Rp 5.750.000</h3>
+                            <h6 class="text-white-50 mb-1">Titik Lokasi</h6>
+                            <h2 class="text-white fw-bold mb-0">{{ $totalLokasi }}</h2>
                         </div>
                         <div class="icon-circle">
-                            <i class="bx bx-trending-down"></i>
+                            <i class="bx bx-map-pin"></i>
                         </div>
                     </div>
-                    <div class="mt-3">
-                        <small class="text-white-50"><i class="bx bx-calendar me-1"></i> Bulan ini (Februari)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card inventory-card bg-loans text-white shadow">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-white-50 mb-1">Peminjaman Aktif</h6>
+                            <h2 class="text-white fw-bold mb-0">{{ $peminjamanAktif }}</h2>
+                        </div>
+                        <div class="icon-circle">
+                            <i class="bx bx-receipt"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,23 +127,25 @@
     </div>
 
     <div class="row">
-        <div class="col-12" data-aos="fade-up" data-aos-delay="300">
-            <div class="card finance-card shadow-sm bg-white">
+        <div class="col-12" data-aos="fade-up" data-aos-delay="400">
+            <div class="card inventory-card shadow-sm bg-white">
                 <div class="card-header border-bottom d-flex justify-content-between align-items-center bg-transparent">
-                    <h5 class="mb-0 fw-bold"><i class="bx bx-transfer-alt me-2 text-primary"></i>Riwayat Arus Kas</h5>
-                    <button class="btn btn-primary btn-sm rounded-pill px-3">
-                        <i class="bx bx-download me-1"></i> Ekspor Data
-                    </button>
+                    <h5 class="mb-0 fw-bold"><i class="bx bx-history me-2 text-primary"></i>Aktivitas Peminjaman Terbaru
+                    </h5>
+                    <a href="{{ route('dashboard.peminjaman.index') }}"
+                        class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                        Lihat Semua
+                    </a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="py-3">Keterangan Transaksi</th>
-                                <th class="py-3 text-center">Tipe</th>
-                                <th class="py-3">Kategori</th>
-                                <th class="py-3">Tanggal</th>
-                                <th class="py-3 text-end">Nominal</th>
+                                <th class="py-3">Nama Peminjam</th>
+                                <th class="py-3">Barang</th>
+                                <th class="py-3">Lokasi Asal</th>
+                                <th class="py-3 text-center">Status</th>
+                                <th class="py-3">Tgl Pinjam</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -127,49 +153,35 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-dollar"></i></span>
+                                            <span class="avatar-initial rounded-circle bg-label-primary"><i
+                                                    class="bx bx-user"></i></span>
                                         </div>
-                                        <span class="fw-bold">Gaji Bulanan</span>
+                                        <span class="fw-bold">Andi Herlambang</span>
                                     </div>
                                 </td>
+                                <td><span class="text-muted">Laptop MacBook Pro</span></td>
+                                <td>Gudang Utama</td>
                                 <td class="text-center">
-                                    <span class="status-badge bg-label-success text-success">MASUK</span>
+                                    <span class="status-badge bg-label-warning text-warning">DIPINJAM</span>
                                 </td>
-                                <td>Pekerjaan</td>
-                                <td class="text-muted">01 Feb 2026</td>
-                                <td class="text-end fw-bold text-success">+ Rp 15.000.000</td>
+                                <td>05 Feb 2026</td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded-circle bg-label-danger"><i class="bx bx-cart"></i></span>
+                                            <span class="avatar-initial rounded-circle bg-label-primary"><i
+                                                    class="bx bx-user"></i></span>
                                         </div>
-                                        <span class="fw-bold">Belanja Mingguan</span>
+                                        <span class="fw-bold">Siti Aminah</span>
                                     </div>
                                 </td>
+                                <td><span class="text-muted">Proyektor Epson X500</span></td>
+                                <td>Ruang Lab 1</td>
                                 <td class="text-center">
-                                    <span class="status-badge bg-label-danger text-danger">KELUAR</span>
+                                    <span class="status-badge bg-label-success text-success">KEMBALI</span>
                                 </td>
-                                <td>Kebutuhan</td>
-                                <td class="text-muted">02 Feb 2026</td>
-                                <td class="text-end fw-bold text-danger">- Rp 1.250.000</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded-circle bg-label-primary"><i class="bx bx-laptop"></i></span>
-                                        </div>
-                                        <span class="fw-bold">Project Freelance</span>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <span class="status-badge bg-label-success text-success">MASUK</span>
-                                </td>
-                                <td>Bisnis</td>
-                                <td class="text-muted">28 Jan 2026</td>
-                                <td class="text-end fw-bold text-success">+ Rp 5.000.000</td>
+                                <td>04 Feb 2026</td>
                             </tr>
                         </tbody>
                     </table>

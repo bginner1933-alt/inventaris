@@ -40,18 +40,18 @@
                                 <div class="btn-group" role="group">
                                     <a href="{{ route('dashboard.location.show', $loc->id) }}"
                                         class="btn btn-sm btn-secondary" title="Detail">
-                                        <i class="fas fa-eye"></i>
+                                        <i class="fas fa-eye">Show</i>
                                     </a>
                                     <a href="{{ route('dashboard.location.edit', $loc->id) }}"
                                         class="btn btn-sm btn-info" title="Edit">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-edit">Edit</i>
                                     </a>
                                     <form action="{{ route('dashboard.location.destroy', $loc->id) }}" method="POST"
                                         onsubmit="return confirm('Hapus lokasi ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
-                                            <i class="fas fa-trash"></i>
+                                            <i class="fas fa-trash">Hapus</i>
                                         </button>
                                     </form>
                                 </div>
@@ -68,4 +68,4 @@
         </div>
     </div>
 </div>
-@endsectionside
+@endsection

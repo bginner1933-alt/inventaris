@@ -78,14 +78,6 @@
             <span class="menu-header-text">Data</span>
         </li>
 
-        {{-- Menu Barang --}}
-        <li class="menu-item {{ request()->routeIs('dashboard.barang.*') ? 'active' : '' }}">
-            <a href="{{ route('dashboard.barang.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-package"></i>
-                <div>Barang</div>
-            </a>
-        </li>
-        
         {{-- Menu Kategori --}}
         <li class="menu-item {{ request()->routeIs('dashboard.kategori.*') ? 'active' : '' }}">
             <a href="{{ route('dashboard.kategori.index') }}" class="menu-link">
@@ -95,9 +87,17 @@
         </li>
 
         <li class="menu-item {{ request()->routeIs('dashboard.location.*') ? 'active' : '' }}">
-            <a href="{{ route('dashboard.location.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-map-pin"></i>
-                <div>Lokasi</div>
+                    <a href="{{ route('dashboard.location.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-map-pin"></i>
+                        <div>Lokasi</div>
+                    </a>
+                </li>
+
+        {{-- Menu Barang --}}
+        <li class="menu-item {{ request()->routeIs('dashboard.barang.*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.barang.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div>Barang</div>
             </a>
         </li>
 
@@ -109,3 +109,42 @@
         </li>
     </ul>
 </aside>
+<style>
+    /* Memberikan efek hover yang lebih lembut pada menu */
+    .menu-vertical .menu-item .menu-link {
+        transition: all 0.3s ease-in-out;
+        border-radius: 0.375rem;
+        margin: 0.125rem 1rem;
+        /* Memberikan sedikit ruang di samping */
+    }
+
+    /* Style khusus untuk menu yang sedang aktif */
+    .menu-vertical .menu-item.active>.menu-link {
+        background: linear-gradient(72.47deg, #696cff 22.16%, rgba(105, 108, 255, 0.7) 76.47%) !important;
+        box-shadow: 0px 2px 6px 0px rgba(105, 108, 255, 0.48) !important;
+        color: #fff !important;
+    }
+
+    /* Menyesuaikan warna icon saat aktif */
+    .menu-vertical .menu-item.active .menu-icon {
+        color: #fff !important;
+    }
+
+    /* Style untuk Header Menu (Administrator & Data) */
+    .menu-header {
+        margin-top: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .menu-header-text {
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #a1acb8 !important;
+    }
+
+    /* Animasi sederhana saat menu di-hover */
+    .menu-item:not(.active) .menu-link:hover {
+        background-color: rgba(105, 108, 255, 0.08);
+        transform: translateX(5px);
+    }
+</style>

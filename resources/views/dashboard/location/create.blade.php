@@ -21,7 +21,7 @@
                 </div>
                 <hr>
                 <a href="{{ route('dashboard.location.index') }}" class="btn btn-secondary">Kembali</a>
-                <button type="submit" class="btn btn-primary">Simpan Lokasi</button>
+                <button type="submit" class="btn btn-warning"><a href="{{ route('dashboard.location.index') }}">Simpan Lokasi</a></button>
             </form>
         </div>
     </div>

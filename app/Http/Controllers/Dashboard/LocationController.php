@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-// Ganti bagian ini agar mengarah ke Model 'Location' bukan 'Lokasi'
 use App\Models\Location; 
 use Illuminate\Http\Request;
 
@@ -11,9 +10,13 @@ class LocationController extends Controller
 {
     public function index()
     {
-        // Panggil 'Location', jangan 'Lokasi'
-        $locations = Location::latest()->get(); 
+        $locations = Location::latest()->get();
         return view('dashboard.location.index', compact('locations'));
+    }
+
+    public function create()
+    {
+        return view('dashboard.location.create');
     }
 
     public function store(Request $request)
@@ -23,9 +26,27 @@ class LocationController extends Controller
             'deskripsi' => 'nullable|string'
         ]);
 
-        // Panggil 'Location' di sini juga
         Location::create($request->all());
 
         return redirect()->back()->with('success', 'Lokasi berhasil ditambahkan!');
+    }
+
+    public function show(Location $location)
+    {
+        return view('dashboard.location.show', compact('location'));
+    }
+
+    public function edit(Location $location)
+    {
+        return view('dashboard.location.edit', compact('location'));
+    }
+
+    public function destroy(Location $location)
+    {
+        $location->delete();
+
+        return redirect()
+            ->route('dashboard.location.index')
+            ->with('success', 'Location berhasil dihapus');
     }
 }

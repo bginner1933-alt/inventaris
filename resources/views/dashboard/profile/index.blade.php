@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="mt-4 d-flex justify-content-end gap-2">
-                            <button type="reset" class="btn btn-outline-secondary">Batalkan</button>
+                            <button type="reset" class="btn btn-outline-secondary"><a href="">Batalkan</a></button>
                             <button type="submit" class="btn btn-primary"><i class="bx bx-check me-1"></i>Simpan
                                 Perubahan</button>
                         </div>

@@ -39,14 +39,31 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_barang' => 'required|unique:barang,kode_barang',
-            'nama_barang' => 'required|string|max:255',
-            'kategori_id' => 'required|exists:kategori,id',
-            'lokasi_id'   => 'required|exists:lokasi,id',
-            'stok'        => 'required|integer|min:0',
+            'kode_barang'   => 'required|unique:barang,kode_barang',
+            'nama_barang'   => 'required|string|max:255',
+            'kategori_id'   => 'required|exists:kategori,id',
+            'lokasi_id'     => 'required|exists:lokasi,id',
+            'stok'          => 'required|integer|min:0',
+            'satuan'        => 'required|string',
+            'kondisi'       => 'required|in:baik,rusak_ringan,rusak_berat,hilang',
+            'tanggal_beli'  => 'required|date',
+            'harga'         => 'required|numeric|min:0',
         ]);
 
-        Barang::create($request->all());
+        // 👇 SIMPAN DI SINI (INI JAWABAN PERTANYAAN KAMU)
+        $data = [
+            'kode_barang'  => $request->kode_barang,
+            'nama_barang'  => $request->nama_barang,
+            'kategori_id'  => $request->kategori_id,
+            'lokasi_id'    => $request->lokasi_id,
+            'jumlah'       => $request->stok, // mapping stok → jumlah
+            'satuan'       => $request->satuan,
+            'kondisi'      => $request->kondisi,
+            'tanggal_beli' => $request->tanggal_beli,
+            'harga'        => $request->harga,
+        ];
+
+        Barang::create($data); // ⬅️ DISIMPAN KE DATABASE DI SINI
 
         return redirect()->route('dashboard.barang.index')
             ->with('success', 'Barang berhasil ditambahkan!');
@@ -85,7 +102,11 @@ class BarangController extends Controller
             'stok'        => 'required|integer|min:0',
         ]);
 
-        $barang->update($request->all());
+        $data = $request->all();
+        // Samakan juga di bagian update
+        $data['jumlah'] = $request->stok;
+
+        $barang->update($data);
 
         return redirect()->route('dashboard.barang.index')
             ->with('success', 'Data barang berhasil diperbarui!');

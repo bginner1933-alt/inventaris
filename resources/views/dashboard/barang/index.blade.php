@@ -40,7 +40,7 @@
                         <td class="py-4">
                             <span class="fw-bold text-dark">{{ $barang->nama_barang }}</span>
                         </td>
-                        <td class="py-4">{{ $barang->stok }}</td>
+                        <td class="py-4">{{ $barang->jumlah }}</td>
                         <td class="py-4">
                             <span class="badge bg-label-info me-1">
                                 {{ $barang->kategori->nama ?? 'Tanpa Kategori' }}

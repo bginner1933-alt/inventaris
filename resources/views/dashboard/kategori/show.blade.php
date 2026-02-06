@@ -13,7 +13,7 @@
         <div class="col-xl-4 col-md-5">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Informasi Kategori</h6>
+                    <h6 class="m-0 font-weight-bold text-primary"> Kategori</h6>
                 </div>
                 <div class="card-body">
                     <div class="text-center mb-4">
