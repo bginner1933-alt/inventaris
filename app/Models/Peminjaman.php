@@ -17,8 +17,13 @@ class Peminjaman extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Relasi ke banyak detail barang
+    // Relasi ke banyak detail (untuk sistem yang mengizinkan banyak barang sekali pinjam)
     public function details() {
         return $this->hasMany(DetailPeminjaman::class, 'peminjaman_id');
+    }
+
+    // PENTING: Tambahkan ini agar DashboardController tidak error saat memanggil with('detail.barang')
+    public function detail() {
+        return $this->hasOne(DetailPeminjaman::class, 'peminjaman_id');
     }
 }

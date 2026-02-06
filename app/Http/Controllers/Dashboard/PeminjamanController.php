@@ -18,8 +18,9 @@ class PeminjamanController extends Controller
     }
 
     public function create() {
-        // Ambil barang yang stoknya lebih dari 0
-        $barang = Barang::where('stok', '>', 0)->get();
+        // PERBAIKAN: Gunakan kolom 'jumlah' sesuai Model Barang Anda
+        $barang = Barang::where('jumlah', '>', 0)->get(); 
+        
         return view('dashboard.peminjaman.create', compact('barang'));
     }
 
@@ -31,14 +32,13 @@ class PeminjamanController extends Controller
             'tanggal_pinjam' => 'required|date',
         ]);
 
-        // Gunakan Database Transaction agar jika satu gagal, semua batal (aman)
         DB::beginTransaction();
         try {
             $barang = Barang::findOrFail($request->barang_id);
 
-            // Cek apakah stok cukup
-            if ($barang->stok < $request->jumlah) {
-                return redirect()->back()->with('error', 'Stok tidak mencukupi!');
+            // PERBAIKAN: Cek menggunakan kolom 'jumlah'
+            if ($barang->jumlah < $request->jumlah) {
+                return redirect()->back()->with('error', 'Stok tidak mencukupi! Tersisa: ' . $barang->jumlah);
             }
 
             // 1. Simpan ke tabel Peminjaman
@@ -59,8 +59,8 @@ class PeminjamanController extends Controller
                 'kondisi_sebelum' => $request->kondisi_sebelum ?? 'Baik',
             ]);
 
-            // 3. KURANGI STOK BARANG
-            $barang->decrement('stok', $request->jumlah);
+            // 3. PERBAIKAN: KURANGI kolom 'jumlah'
+            $barang->decrement('jumlah', $request->jumlah);
 
             DB::commit();
             return redirect()->route('dashboard.peminjaman.index')->with('success', 'Peminjaman berhasil dicatat!');

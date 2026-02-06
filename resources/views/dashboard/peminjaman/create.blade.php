@@ -37,10 +37,13 @@
                                 <option value="">-- Pilih Barang (Stok Tersedia) --</option>
                                 @foreach($barang as $b)
                                 <option value="{{ $b->id }}">
-                                    {{ $b->nama_barang }} | (Sisa Stok: {{ $b->stok }})
+                                    {{ $b->nama_barang }} | (Sisa Stok: {{ $b->jumlah }} {{ $b->satuan }})
                                 </option>
                                 @endforeach
                             </select>
+                            @error('barang_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="row">

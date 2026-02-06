@@ -66,8 +66,9 @@
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-white-50 mb-1">Total Barang</h6>
-                            <h2 class="text-white fw-bold mb-0">{{ $totalBarang }}</h2>
+                            {{-- Ubah teks label di sini --}}
+                            <h6 class="text-white-50 mb-1">Total Jumlah Barang</h6>
+                            <h2 class="text-white fw-bold mb-0">{{ number_format($totalBarang) }}</h2>
                         </div>
                         <div class="icon-circle">
                             <i class="bx bx-package"></i>
@@ -149,40 +150,44 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($riwayatTerbaru as $item)
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded-circle bg-label-primary"><i
-                                                    class="bx bx-user"></i></span>
+                                            <span class="avatar-initial rounded-circle bg-label-primary">
+                                                <i class="bx bx-user"></i>
+                                            </span>
                                         </div>
-                                        <span class="fw-bold">Andi Herlambang</span>
+                                        {{-- Nama peminjam yang diinput di form --}}
+                                        <span class="fw-bold">{{ $item->nama_peminjam }}</span>
                                     </div>
                                 </td>
-                                <td><span class="text-muted">Laptop MacBook Pro</span></td>
-                                <td>Gudang Utama</td>
+                                <td>
+                                    {{-- PERBAIKAN: Mengambil barang lewat relasi detail --}}
+                                    <span class="text-muted">
+                                        {{ $item->detail->barang->nama_barang ?? 'Barang Terhapus' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {{-- PERBAIKAN: Mengambil lokasi dari relasi barang --}}
+                                    {{ $item->detail->barang->lokasi->nama ?? 'N/A' }}
+                                </td>
                                 <td class="text-center">
+                                    @if($item->status == 'dipinjam')
                                     <span class="status-badge bg-label-warning text-warning">DIPINJAM</span>
-                                </td>
-                                <td>05 Feb 2026</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded-circle bg-label-primary"><i
-                                                    class="bx bx-user"></i></span>
-                                        </div>
-                                        <span class="fw-bold">Siti Aminah</span>
-                                    </div>
-                                </td>
-                                <td><span class="text-muted">Proyektor Epson X500</span></td>
-                                <td>Ruang Lab 1</td>
-                                <td class="text-center">
+                                    @else
                                     <span class="status-badge bg-label-success text-success">KEMBALI</span>
+                                    @endif
                                 </td>
-                                <td>04 Feb 2026</td>
+                                {{-- Menggunakan format tanggal pinjam dari database --}}
+                                <td>{{ \Carbon\Carbon::parse($item->tanggal_pinjam)->format('d M Y') }}</td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">Belum ada aktivitas peminjaman.</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Kategori;
-use App\Models\Location; // Sesuaikan dengan nama model lokasi Anda
+use App\Models\Location; 
 use App\Models\Peminjaman;
 
 class DashboardController extends Controller
@@ -17,11 +17,12 @@ class DashboardController extends Controller
     public function index()
     {
         $data = [
-            'totalBarang'     => Barang::count(),
+            'totalBarang'     => Barang::sum('jumlah'),
             'totalKategori'   => Kategori::count(),
-            'totalLokasi'     => Location::count(),
+            // PERBAIKAN: Menggunakan Location (sesuai import di atas)
+            'totalLokasi'     => Location::count(), 
             'peminjamanAktif' => Peminjaman::where('status', 'dipinjam')->count(),
-            'riwayatTerbaru'  => Peminjaman::with(['user', 'barang', 'location']) // Eager loading agar ringan
+            'riwayatTerbaru'  => Peminjaman::with(['user', 'detail.barang'])
                                 ->latest()
                                 ->take(5)
                                 ->get()
